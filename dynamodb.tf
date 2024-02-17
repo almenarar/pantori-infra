@@ -22,12 +22,12 @@ resource "aws_dynamodb_table" "table" {
   }
 
   global_secondary_index {
-    name               = "WorkspaceIndex"
-    hash_key           = "Workspace"
-    range_key          = "Category"
-    write_capacity     = 5
-    read_capacity      = 5
-    projection_type    = "ALL"
+    name            = "WorkspaceIndex"
+    hash_key        = "Workspace"
+    range_key       = "Category"
+    write_capacity  = 5
+    read_capacity   = 5
+    projection_type = "ALL"
   }
 
   tags = {
