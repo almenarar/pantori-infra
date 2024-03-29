@@ -44,7 +44,10 @@ resource "aws_iam_policy" "policy" {
         ],
         "Resource" : [
           "arn:aws:dynamodb:us-east-1:471112738977:table/pantori-goods",
-          "arn:aws:dynamodb:us-east-1:471112738977:table/pantori-goods/index/*"
+          "arn:aws:dynamodb:us-east-1:471112738977:table/pantori-goods/index/*",
+          "arn:aws:dynamodb:us-east-1:471112738977:table/pantori-categories",
+          "arn:aws:dynamodb:us-east-1:471112738977:table/pantori-categories/index/*",
+          "arn:aws:dynamodb:us-east-1:471112738977:table/pantori-users"
         ]
       },
       {
