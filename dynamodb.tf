@@ -81,16 +81,10 @@ resource "aws_dynamodb_table" "users" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "ID"
-  range_key      = "Workspace"
+  hash_key       = "Username"
 
   attribute {
-    name = "ID"
-    type = "S"
-  }
-
-  attribute {
-    name = "Workspace"
+    name = "Username"
     type = "S"
   }
 
