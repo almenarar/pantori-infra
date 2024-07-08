@@ -1,3 +1,22 @@
+#------------------------------------
+
+resource "aws_ecs_cluster" "main" {
+  name = "pantori-cluster"
+}
+
+#------------------------------------
+
+resource "aws_s3_bucket" "bucket" {
+  bucket = "pantori-app"
+
+  tags = {
+    Name        = "pantori-app"
+    Owner       = "Pantori"
+    Environment = "Production"
+  }
+}
+#------------------------------------
+
 resource "aws_iam_user" "user" {
   name = "pantori-app"
   path = "/app/"
@@ -62,5 +81,50 @@ resource "aws_iam_policy" "policy" {
 
 resource "aws_iam_user_policy_attachment" "test-attach" {
   user       = aws_iam_user.user.name
+  policy_arn = aws_iam_policy.policy.arn
+}
+
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name = "ecsTaskExecutionRole"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "ecs_task_execution_policy" {
+  name = "ecsTaskExecutionRolePolicy"
+  role = aws_iam_role.ecs_task_execution_role.id
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetAuthorizationToken",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "secretsmanager:GetSecretValue",
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_ecr_access" {
+  role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = aws_iam_policy.policy.arn
 }

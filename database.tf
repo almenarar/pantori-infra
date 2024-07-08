@@ -1,3 +1,5 @@
+#------------------------------------
+
 resource "aws_dynamodb_table" "goods" {
   name           = "pantori-goods"
   billing_mode   = "PROVISIONED"
@@ -37,6 +39,8 @@ resource "aws_dynamodb_table" "goods" {
   }
 }
 
+#------------------------------------
+
 resource "aws_dynamodb_table" "categories" {
   name           = "pantori-categories"
   billing_mode   = "PROVISIONED"
@@ -59,7 +63,7 @@ resource "aws_dynamodb_table" "categories" {
     name = "Name"
     type = "S"
   }
-  
+
   global_secondary_index {
     name            = "WorkspaceIndex"
     hash_key        = "Workspace"
@@ -75,6 +79,8 @@ resource "aws_dynamodb_table" "categories" {
     Owner       = "Pantori"
   }
 }
+
+#------------------------------------
 
 resource "aws_dynamodb_table" "users" {
   name           = "pantori-users"
