@@ -1,13 +1,17 @@
 variable "service_name" {
   type        = string
   description = "Service name"
-  default     = "pantori-default"
+}
+
+variable "only_task_definition" {
+  type = bool
+  description = "enable to not create a service on top"
+  default = false
 }
 
 variable "cluster" {
   type        = string
   description = "ECS cluster to include the service"
-  default     = "pantori-default"
 }
 
 variable "role_arn" {
@@ -35,7 +39,6 @@ variable "memory" {
 variable "image_name" {
   type        = string
   description = "Container image name"
-  default     = "pantori-default"
 }
 
 variable "port" {

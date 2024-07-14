@@ -19,6 +19,37 @@ module "notifier-secrets" {
   name   = "pantori-notifier"
 }
 
+module "notifier-start-schedule" {
+  source = "./serverless"
+  file_name = "./serverless/code/start_ecs_task.zip"
+  function_name = "pantori-notifier-start-schedule"
+  role_arn = aws_iam_role.lambda_execution.arn
+  handler = "start_ecs_task.lambda_handler"
+  runtime = "python3.8"
+  env_vars = {
+    "TASK_DEFINITION": "pantori-notifier:4"
+  }
+  is_scheduled = true
+  schedule_name = "pantori-notifier-daily-start"
+  schedule_description = "Triggers ECS task every day at 9 AM"
+  schedule_expression = "cron(0 9 * * ? *)"
+  schedule_target_id = "startEcsTask"
+}
+
+module "notifier-stop-schedule" {
+  source = "./serverless"
+  file_name = "./serverless/code/stop_ecs_task.zip"
+  function_name = "pantori-notifier-stop-schedule"
+  role_arn = aws_iam_role.lambda_execution.arn
+  handler = "stop_ecs_task.lambda_handler"
+  runtime = "python3.8"
+  is_scheduled = true
+  schedule_name = "pantori-notifier-daily-stop"
+  schedule_description = "Stops ECS task every day at 9 AM"
+  schedule_expression = "cron(15 9 * * ? *)"
+  schedule_target_id = "stopEcsTask"
+}
+
 module "notifier-compute" {
   source          = "./compute"
   cluster         = aws_ecs_cluster.main.id
@@ -31,6 +62,7 @@ module "notifier-compute" {
   port            = 80
   log_group_name  = module.notifier-logs.log_group_name
   is_web_faced    = false
+  only_task_definition = true
   environment_variables = [
     {
       "name"  = "NOTIFIER_WORKER_NUM"
