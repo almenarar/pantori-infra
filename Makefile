@@ -3,7 +3,7 @@ TF = terraform
 
 .PHONY: all clean terraform-init terraform-apply zip-start zip-stop
 
-all: zip-start zip-stop terraform-apply
+all: zip-start zip-stop terraform-apply clean
 
 zip-start: 
 	cd ./serverless/code; zip -r start_ecs_task.zip start_ecs_task.py

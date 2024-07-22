@@ -4,9 +4,9 @@ variable "service_name" {
 }
 
 variable "only_task_definition" {
-  type = bool
+  type        = bool
   description = "enable to not create a service on top"
-  default = false
+  default     = false
 }
 
 variable "cluster" {

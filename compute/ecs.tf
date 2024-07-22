@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "main" {
 }
 
 resource "aws_ecs_service" "main" {
-  count       = var.only_task_definition ? 0 : 1
+  count           = var.only_task_definition ? 0 : 1
   name            = format("%s-service", var.service_name)
   cluster         = var.cluster
   task_definition = aws_ecs_task_definition.main.arn

@@ -27,7 +27,7 @@ module "api-compute" {
   container_count = 1
   cpu             = 256
   memory          = 512
-  image_name      = format("%s:c6616f6", module.api-repository.image_name)
+  image_name      = format("%s:a321766", module.api-repository.image_name)
   port            = 8800
   environment_variables = [
     {

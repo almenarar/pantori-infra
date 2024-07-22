@@ -131,12 +131,12 @@ resource "aws_iam_role_policy_attachment" "ecs_task_ecr_access" {
 
 #---------------------------------------------------
 resource "aws_iam_role" "lambda_execution" {
-  name               = "lambdaExecutionRole"
+  name = "lambdaExecutionRole"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Action    = "sts:AssumeRole",
-      Effect    = "Allow",
+      Action = "sts:AssumeRole",
+      Effect = "Allow",
       Principal = {
         Service = "lambda.amazonaws.com"
       }

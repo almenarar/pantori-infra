@@ -22,7 +22,7 @@ module "frontend-compute" {
   container_count = 1
   cpu             = 256
   memory          = 512
-  image_name      = format("%s:94d7daf", module.frontend-repository.image_name)
+  image_name      = format("%s:1caca8e", module.frontend-repository.image_name)
   port            = 80
   log_group_name  = module.frontend-logs.log_group_name
   is_web_faced    = true

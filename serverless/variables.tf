@@ -1,6 +1,6 @@
 variable "file_name" {
-    type = string
-    description = "code file to be executed"
+  type        = string
+  description = "code file to be executed"
 }
 
 variable "function_name" {
@@ -32,17 +32,17 @@ variable "is_scheduled" {
 }
 
 variable "schedule_name" {
-  
+
 }
 
 variable "schedule_expression" {
-  
+
 }
 
 variable "schedule_description" {
-  
+
 }
 
 variable "schedule_target_id" {
-  
+
 }
