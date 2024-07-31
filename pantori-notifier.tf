@@ -27,7 +27,7 @@ module "notifier-start-schedule" {
   handler       = "start_ecs_task.lambda_handler"
   runtime       = "python3.8"
   env_vars = {
-    "TASK_DEFINITION" : module.notifier-compute.task_definition_revision
+    "TASK_DEFINITION" : format("pantori-notifier:%s",module.notifier-compute.task_definition_revision)
   }
   is_scheduled         = true
   schedule_name        = "pantori-notifier-daily-start"
@@ -58,7 +58,7 @@ module "notifier-compute" {
   container_count      = 1
   cpu                  = 256
   memory               = 512
-  image_name           = format("%s:a321766", module.notifier-repository.image_name)
+  image_name           = format("%s:d7887b3", module.notifier-repository.image_name)
   port                 = 80
   log_group_name       = module.notifier-logs.log_group_name
   is_web_faced         = false
